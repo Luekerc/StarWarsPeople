@@ -1,0 +1,53 @@
+
+<div class="people-container">
+    <div class="find-filter-container">
+        Find by 
+        <mat-form-field appearance="outline">
+            <mat-label></mat-label>
+            <mat-select [(value)]="filterType">
+              <mat-option *ngFor="let option of dropdownOptions" 
+                [value]="option.value"
+                (onSelectionChange)="selectFindBy($event)"
+                >
+                {{option.viewValue}}
+              </mat-option>
+            </mat-select>
+        </mat-form-field>
+        <div *ngIf="errorMessage?.length" class="error-message">{{errorMessage}}</div>
+        <mat-form-field appearance="outline">
+            <mat-label></mat-label>
+            <input matInput type='text' placeholder="Filter" autocomplete="off" [(ngModel)]="filterText" (ngModelChange)="applyPeopleFilter()">
+        </mat-form-field>
+    </div>
+   
+    <br/><br/><br/>
+    <table mat-table [dataSource]="dataSource" matSort class="mat-elevation-z8">
+        <!-- Name Column -->
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Name </th>
+          <td mat-cell *matCellDef="let element"> {{element.name}} </td>
+        </ng-container>
+        <!-- Home World Column -->
+        <ng-container matColumnDef="homeWorld">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Home World </th>
+          <td mat-cell *matCellDef="let element"> {{element.homeworld}} </td>
+        </ng-container>
+        <!-- Birth Year Column -->
+        <ng-container matColumnDef="birthYear">
+          <th mat-header-cell *matHeaderCellDef mat-sort-header> Birth Year </th>
+          <td mat-cell *matCellDef="let element"> {{element.birth_year}} </td>
+        </ng-container>
+         <!-- Films Column -->
+        <ng-container matColumnDef="films">
+            <th mat-header-cell *matHeaderCellDef mat-sort-header> Films </th>
+            <td mat-cell *matCellDef="let element"> 
+                <ul>
+                    <li *ngFor="let film of element.films">{{film}}</li>
+                </ul>
+            </td>
+        </ng-container>
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+      </table>
+      <mat-paginator (page)="handlePageEvent($event)" [length]="count" [pageSize]="pageSize" [hidePageSize]="true" showFirstLastButtons></mat-paginator>
+</div>
