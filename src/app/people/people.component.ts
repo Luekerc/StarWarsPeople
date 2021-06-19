@@ -83,12 +83,8 @@ export class PeopleComponent implements OnInit {
       });
       result.films = newArray;
    });
-  
-   return people;
-  }
 
-  onMatSortChange(event: any) {
-    console.log('mat sort change', event, this.dataSource.data);
+   return people;
   }
 
   selectFindBy(event: any) {
