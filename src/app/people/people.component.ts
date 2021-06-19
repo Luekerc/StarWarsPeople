@@ -63,19 +63,27 @@ export class PeopleComponent implements OnInit {
     this.count = people.count;
     this.next = people.next;
     this.previous = people.previous;
-    this.people = this.getPlanet(people);
+    this.people = this.getPlanets(people);
+    this.people = this.getFilms(people);
     this.dataSource = new MatTableDataSource<IPeople>(people.results);
     this.dataSource.sort = this.sort;
   }
 
    /** this is to get the details of each items when a url is given */
-   getPlanet(people: any ) {
+   getPlanets(people: any) {
     people.results.map((person: { homeworld: string; }) => this.starWarsService.getPersonData(person.homeworld).pipe(takeUntil(this.destroy$)).subscribe(res => person.homeworld = res.name));
     return people;
   }
 
-  getFilms() {
-    
+  getFilms(people: any) {
+   people.results.forEach((result: any) => {
+     const newArray: any[] = [];
+     result.films.map((film: string) => {
+       this.starWarsService.getPersonData(film).pipe(takeUntil(this.destroy$)).subscribe(res => newArray.push(res.title))
+      });
+      result.films = newArray;
+   });
+   return people;
   }
 
   selectFindBy(event: any) {
