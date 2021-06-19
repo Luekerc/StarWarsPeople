@@ -1,4 +1,5 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit, OnDestroy, ViewChild } from '@angular/core';
+import { takeUntil } from 'rxjs/operators';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
@@ -6,6 +7,7 @@ import { IPeople } from '../shared/interfaces/interfaces';
 import { EMPTY_DATA } from '../shared/data.mock';
 
 import { StarWarsService } from '../shared/services/star-wars.service';
+import { Subject } from 'rxjs';
 
 interface DropdownSelect {
   value: string;
@@ -32,12 +34,16 @@ export class PeopleComponent implements OnInit {
   filterText = ''; // with filterText: string; VSCode threw "Property 'filterText' has no initializer and is not definitely assigned in the constructor." "
   people: any; // TODO a 'person' should be defined as an interface imported from an interface file for the people array
   filteredPeople: any;// same interface as above
-
+  name = 'name';
+  homeWorld = 'homeWorld';
+  film = 'film';
   next = '';
   previous = '';
   first = '';
   last = '';
   pageSize = 10;
+
+  private destroy$ = new Subject();
 
   constructor(private starWarsService: StarWarsService) {
    }
@@ -47,7 +53,7 @@ export class PeopleComponent implements OnInit {
   sort: MatSort = new MatSort; 
 
   ngOnInit(): void {
-    this.starWarsService.people$.subscribe(people => this.setPeople(people));
+    this.starWarsService.people$.pipe(takeUntil(this.destroy$)).subscribe(people => this.setPeople(people));
     this.dataSource.paginator = this.paginator;
   }
 
@@ -64,7 +70,7 @@ export class PeopleComponent implements OnInit {
 
    /** this is to get the details of each items when a url is given */
    getPlanet(people: any ) {
-    people.results.map((person: { homeworld: string; }) => this.starWarsService.getPersonData(person.homeworld).subscribe(res => person.homeworld = res.name));
+    people.results.map((person: { homeworld: string; }) => this.starWarsService.getPersonData(person.homeworld).pipe(takeUntil(this.destroy$)).subscribe(res => person.homeworld = res.name));
     return people;
   }
 
@@ -88,10 +94,9 @@ export class PeopleComponent implements OnInit {
   }
 
   applyPeopleFilter() {
-    console.log('this.people ', this.people, this.filterType, this.filterText);
     this.checkForPeople();
     const filterText = this.filterText.toLowerCase();
-    if (this.people && this.filterType == 'name') {
+    if (this.people && this.filterType == this.name) {
        this.dataSource.data = this.people?.results.filter(
         (person: { name: string, homeworld: string, films: string[] }) => {
           const name = person.name.toLowerCase();
@@ -99,7 +104,7 @@ export class PeopleComponent implements OnInit {
         }
       )
     }
-    if (this.people && this.filterType == 'homeWorld') {
+    if (this.people && this.filterType == this.homeWorld) {
        this.dataSource.data = this.people?.results.filter(
         (person: { name: string, homeworld: string, films: string[] | any[] }) => {
           const homeworld = person.homeworld.toLowerCase();
@@ -108,7 +113,7 @@ export class PeopleComponent implements OnInit {
         }
       )
     }
-    if (this.people && this.filterType == 'film') {
+    if (this.people && this.filterType == this.film) {
        this.dataSource.data = this.people?.results.filter(
         (person: { name: string | any[], homeworld: string | any[], films: string[] | any[] }) => {
           // TODO filter based on all films within the array
@@ -121,10 +126,9 @@ export class PeopleComponent implements OnInit {
   handlePageEvent(event: any) {
     const nextPage = event.pageIndex + 1;
     const url = `https://swapi.dev/api/people/?page=${nextPage}`
-    console.log(url);
-    this.starWarsService.getMoreResults(url).subscribe(
+    this.starWarsService.getMoreResults(url).pipe(takeUntil(this.destroy$)).subscribe(
       (people: any) =>  this.starWarsService.people$.next(people)
-      );
+    );
   }
 
 }
