@@ -1,25 +1,4 @@
 import * as _ from "lodash";
-
-
-export interface RawPeople {
-  birth_year: string,
-  eye_color: string,
-  films:string[],
-  gender: string,
-  hair_color: string,
-  height: string,
-  homeworld: string,
-  mass: string,
-  name: string,
-  skin_color: string,
-  created: string,
-  edited: string,
-  species: string[],
-  starships: string[],
-  url: string,
-  vehicles: string[]
-} 
-
 interface IFilm {
   characters: string[] | IPeople[];
   created: Date;

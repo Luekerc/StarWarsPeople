@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
-import { RawPeople } from '../shared/interfaces/interfaces';
+import { IPeople } from '../shared/interfaces/interfaces';
 import { EMPTY_DATA } from '../shared/data.mock';
 
 import { StarWarsService } from '../shared/services/star-wars.service';
@@ -57,16 +57,20 @@ export class PeopleComponent implements OnInit {
     this.count = people.count;
     this.next = people.next;
     this.previous = people.previous;
-    this.people = this.getPersonData(people);
-    this.dataSource = new MatTableDataSource<RawPeople>(people.results);
+    this.people = this.getPlanet(people);
+    this.dataSource = new MatTableDataSource<IPeople>(people.results);
     this.dataSource.sort = this.sort;
   }
 
    /** this is to get the details of each items when a url is given */
-   getPersonData(people: any ) {
-     const url = people.results[0].homeworld;
-    people.results.forEach((person: { homeworld: string; }) => this.starWarsService.getPersonData(person.homeworld).subscribe(res => person.homeworld = res.name));
+   getPlanet(people: any ) {
+    const url = people.results[0].homeworld;
+    people.results.map((person: { homeworld: string; }) => this.starWarsService.getPersonData(person.homeworld).subscribe(res => person.homeworld = res.name));
     return people;
+  }
+
+  getFilms() {
+    
   }
 
   selectFindBy(event: any) {
@@ -122,14 +126,6 @@ export class PeopleComponent implements OnInit {
     this.starWarsService.getMoreResults(url).subscribe(
       (people: any) =>  this.starWarsService.people$.next(people)
       );
-  }
-
-  getPlanet(people: any) {
-
-  }
-
-  getFilms() {
-    
   }
 
 }

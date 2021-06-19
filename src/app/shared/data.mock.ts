@@ -1,5 +1,5 @@
 
-import { RawPeople } from './interfaces/interfaces';
+import { IPeople } from './interfaces/interfaces';
 
  export const EMPTY_DATA = {count: 10, next: null, previous: null, results: [
     {  
@@ -254,7 +254,7 @@ import { RawPeople } from './interfaces/interfaces';
     ]}
 ]}
 
-export const MOCK_DATA: RawPeople[] = [
+export const MOCK_DATA: IPeople[] = [
     {  
         birth_year: "223Aa",
         eye_color: "Green",
@@ -269,8 +269,8 @@ export const MOCK_DATA: RawPeople[] = [
         mass: "64 Stone",
         name: "Mock 1",
         skin_color: "Green spots",
-        created: "14 April 1975",
-        edited: "20 April 1978",
+        created: new Date("14 April 1975"),
+        edited: new Date("20 April 1978"),
         species: [
         "Coagulate"
         ],
@@ -295,8 +295,8 @@ export const MOCK_DATA: RawPeople[] = [
         mass: "64 Stone",
         name: "Mock 2",
         skin_color: "Green spots",
-        created: "14 April 1975",
-        edited: "20 April 1978",
+        created: new Date("14 April 1975"),
+        edited: new Date("20 April 1978"),
         species: [
         "Coagulate"
         ],
@@ -320,8 +320,8 @@ export const MOCK_DATA: RawPeople[] = [
         mass: "64 Stone",
         name: "Mock 3",
         skin_color: "Green spots",
-        created: "14 April 1975",
-        edited: "20 April 1978",
+        created: new Date("14 April 1975"),
+        edited: new Date("20 April 1978"),
         species: [
         "Coagulate"
         ],
@@ -345,8 +345,8 @@ export const MOCK_DATA: RawPeople[] = [
         mass: "64 Stone",
         name: "Mock 5",
         skin_color: "Green spots",
-        created: "14 April 1975",
-        edited: "20 April 1978",
+        created: new Date("14 April 1975"),
+        edited: new Date("20 April 1978"),
         species: [
         "Coagulate"
         ],
@@ -371,8 +371,8 @@ export const MOCK_DATA: RawPeople[] = [
         mass: "64 Stone",
         name: "Mock 6",
         skin_color: "Green spots",
-        created: "14 April 1975",
-        edited: "20 April 1978",
+        created: new Date("14 April 1975"),
+        edited: new Date("20 April 1978"),
         species: [
         "Coagulate"
         ],
@@ -397,8 +397,8 @@ export const MOCK_DATA: RawPeople[] = [
         mass: "64 Stone",
         name: "Mock 7",
         skin_color: "Green spots",
-        created: "14 April 1975",
-        edited: "20 April 1978",
+        created: new Date("14 April 1975"),
+        edited: new Date("20 April 1978"),
         species: [
         "Coagulate"
         ],
@@ -422,8 +422,8 @@ export const MOCK_DATA: RawPeople[] = [
         mass: "64 Stone",
         name: "Mock 8t",
         skin_color: "Green spots",
-        created: "14 April 1975",
-        edited: "20 April 1978",
+        created: new Date("14 April 1975"),
+        edited: new Date("20 April 1978"),
         species: [
         "Coagulate"
         ],
@@ -447,8 +447,8 @@ export const MOCK_DATA: RawPeople[] = [
         mass: "64 Stone",
         name: "Mock 9",
         skin_color: "Green spots",
-        created: "14 April 1975",
-        edited: "20 April 1978",
+        created: new Date("14 April 1975"),
+        edited: new Date("20 April 1978"),
         species: [
         "Coagulate"
         ],
@@ -472,8 +472,8 @@ export const MOCK_DATA: RawPeople[] = [
         mass: "64 Stone",
         name: "Mock 10",
         skin_color: "Green spots",
-        created: "14 April 1975",
-        edited: "20 April 1978",
+        created: new Date("14 April 1975"),
+        edited: new Date("20 April 1978"),
         species: [
         "Coagulate"
         ],
@@ -497,8 +497,8 @@ export const MOCK_DATA: RawPeople[] = [
         mass: "64 Stone",
         name: "Mock 11",
         skin_color: "Green spots",
-        created: "14 April 1975",
-        edited: "20 April 1978",
+        created: new Date("14 April 1975"),
+        edited: new Date("20 April 1978"),
         species: [
         "Coagulate"
         ],
@@ -522,8 +522,8 @@ export const MOCK_DATA: RawPeople[] = [
         mass: "64 Stone",
         name: "Mock 12",
         skin_color: "Green spots",
-        created: "14 April 1975",
-        edited: "20 April 1978",
+        created: new Date("14 April 1975"),
+        edited: new Date("20 April 1978"),
         species: [
         "Coagulate"
         ],
