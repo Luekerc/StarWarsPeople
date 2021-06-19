@@ -23,10 +23,10 @@ interface DropdownSelect {
 export class PeopleComponent implements OnInit {
   count = 0;
   dataSource = new MatTableDataSource<any>(EMPTY_DATA.results);
-  displayedColumns: string[] = ['name', 'homeWorld', 'birthYear', 'films'];
+  displayedColumns: string[] = ['name', 'homeworld', 'birth_year', 'films'];
   dropdownOptions: DropdownSelect[] = [
     {value: 'name', viewValue: 'Name'},
-    {value: 'homeWorld', viewValue: 'Home World'},
+    {value: 'homeworld', viewValue: 'Home World'},
     {value: 'film', viewValue: 'Film'}
   ]
   errorMessage = '';
@@ -83,7 +83,12 @@ export class PeopleComponent implements OnInit {
       });
       result.films = newArray;
    });
+  
    return people;
+  }
+
+  onMatSortChange(event: any) {
+    console.log('mat sort change', event, this.dataSource.data);
   }
 
   selectFindBy(event: any) {
@@ -116,7 +121,6 @@ export class PeopleComponent implements OnInit {
        this.dataSource.data = this.people?.results.filter(
         (person: { name: string, homeworld: string, films: string[] | any[] }) => {
           const homeworld = person.homeworld.toLowerCase();
-          console.log(homeworld);
           return homeworld.includes(filterText);
         }
       )
