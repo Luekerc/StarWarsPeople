@@ -57,9 +57,16 @@ export class PeopleComponent implements OnInit {
     this.count = people.count;
     this.next = people.next;
     this.previous = people.previous;
-    this.people = people.results;
+    this.people = this.getPersonData(people);
     this.dataSource = new MatTableDataSource<RawPeople>(people.results);
     this.dataSource.sort = this.sort;
+  }
+
+   /** this is to get the details of each items when a url is given */
+   getPersonData(people: any ) {
+     const url = people.results[0].homeworld;
+    people.results.forEach((person: { homeworld: string; }) => this.starWarsService.getPersonData(person.homeworld).subscribe(res => person.homeworld = res.name));
+    return people;
   }
 
   selectFindBy(event: any) {
@@ -115,12 +122,6 @@ export class PeopleComponent implements OnInit {
     this.starWarsService.getMoreResults(url).subscribe(
       (people: any) =>  this.starWarsService.people$.next(people)
       );
-  }
-
-  /** this is to get the details of each items when a url is given */
-  getPersonData(people: any ) {
-    //this.starWarsService.getPersonData(people.results[0].homeworld).subscribe(res => console.log(res));
-
   }
 
   getPlanet(people: any) {
