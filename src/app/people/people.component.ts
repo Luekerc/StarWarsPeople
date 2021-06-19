@@ -64,7 +64,6 @@ export class PeopleComponent implements OnInit {
 
    /** this is to get the details of each items when a url is given */
    getPlanet(people: any ) {
-    const url = people.results[0].homeworld;
     people.results.map((person: { homeworld: string; }) => this.starWarsService.getPersonData(person.homeworld).subscribe(res => person.homeworld = res.name));
     return people;
   }
@@ -93,7 +92,7 @@ export class PeopleComponent implements OnInit {
     this.checkForPeople();
     const filterText = this.filterText.toLowerCase();
     if (this.people && this.filterType == 'name') {
-       this.dataSource.data = this.people?.filter(
+       this.dataSource.data = this.people?.results.filter(
         (person: { name: string, homeworld: string, films: string[] }) => {
           const name = person.name.toLowerCase();
           return name.includes(filterText);
@@ -101,7 +100,7 @@ export class PeopleComponent implements OnInit {
       )
     }
     if (this.people && this.filterType == 'homeWorld') {
-       this.dataSource.data = this.people?.filter(
+       this.dataSource.data = this.people?.results.filter(
         (person: { name: string, homeworld: string, films: string[] | any[] }) => {
           const homeworld = person.homeworld.toLowerCase();
           console.log(homeworld);
@@ -110,7 +109,7 @@ export class PeopleComponent implements OnInit {
       )
     }
     if (this.people && this.filterType == 'film') {
-       this.dataSource.data = this.people?.filter(
+       this.dataSource.data = this.people?.results.filter(
         (person: { name: string | any[], homeworld: string | any[], films: string[] | any[] }) => {
           // TODO filter based on all films within the array
           return person.films[0].includes(this.filterText);
