@@ -21,20 +21,24 @@ table {
 .mat-column-name {
     width: 20%;
 }
+
 .mat-column-homeWorld {
     width: 25%;
 }
+
 .mat-column-birthYear {
     width: 25%;
 }
 .mat-column-films {
     width: 30%;
 }
+
 table, .mat-cell, .mat-header-cell {
     border: solid 2px #9eadba;
     color: #293845;
     font-size: 16px;
 }
+
 .mat-header-cell {
     padding-left: 24px;
     background: #eef;
@@ -58,9 +62,15 @@ tr.mat-row, tr.mat-footer-row, tr.mat-header-row {
 .mat-row:nth-child(even){
     background-color: #f7f9fa;
 }  
+
+::ng-deep .mat-sort-header-arrow {
+    opacity: 1 !important;
+}
+
 ::ng-deep .mat-flat-button.mat-primary, .mat-raised-button.mat-primary, .mat-fab.mat-primary, .mat-mini-fab.mat-primary {
     background-color: #6558f5 !important;
 } 
+
 ::ng-deep .mat-form-field {
     height: 24px;
     margin-left: 8px;
@@ -77,6 +87,7 @@ tr.mat-row, tr.mat-footer-row, tr.mat-header-row {
         }
     }
 }
+
 ::ng-deep .mat-option-text {
     font-size: 14px;
 }
