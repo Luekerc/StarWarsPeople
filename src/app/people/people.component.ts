@@ -96,9 +96,8 @@ export class PeopleComponent implements OnInit {
       this.errorMessage = 'Please load people before filtering';
 
     }
-    if (this.people || this.people && this.filterText === '') {
+    if (this.people || !this.people && this.filterText === '') {
       this.errorMessage = '';
-
     }
   }
 
