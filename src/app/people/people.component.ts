@@ -35,7 +35,7 @@ export class PeopleComponent implements OnInit {
   people: any; // TODO a 'person' should be defined as an interface imported from an interface file for the people array
   filteredPeople: any;// same interface as above
   name = 'name';
-  homeWorld = 'homeWorld';
+  homeworld = 'homeworld';
   film = 'film';
   next = '';
   previous = '';
@@ -112,9 +112,9 @@ export class PeopleComponent implements OnInit {
         }
       )
     }
-    if (this.people && this.filterType == this.homeWorld) {
+    if (this.people && this.filterType == this.homeworld) {
        this.dataSource.data = this.people?.results.filter(
-        (person: { name: string, homeworld: string, films: string[] | any[] }) => {
+        (person: { name: string, homeworld: string, films: string[] }) => {
           const homeworld = person.homeworld.toLowerCase();
           return homeworld.includes(filterText);
         }
@@ -122,7 +122,7 @@ export class PeopleComponent implements OnInit {
     }
     if (this.people && this.filterType == this.film) {
        this.dataSource.data = this.people?.results.filter(
-        (person: { name: string | any[], homeworld: string | any[], films: string[] | any[] }) => {
+        (person: { name: string, homeworld: string, films: string[] }) => {
           // TODO filter based on all films within the array
           return person.films[0].includes(this.filterText);
         }
